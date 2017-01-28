@@ -14,7 +14,6 @@
 # directional pad values are 0.0 or 1.0
 # buttons: [a, b, x, y, LeftBumper, RightBumper, back, start, XboxButton, LeftJoystickPress, RightJoystickPress]
 # all buttons values are either 1.0 (button is pushed) or 0.0 (button is not pushed)
-
 import rospy
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import Twist
@@ -38,9 +37,11 @@ class MecanumTeleop:
 
         twist = Twist()
 
+        safety = float(joy.buttons[6]) * float(joy.buttons[7])
+
         # linear velocity
-        # button A must be pressed to allow movement
-        vLinear = float(joy.buttons[0]) * sqrt(joy.axes[0]**2 + joy.axes[1]**2)
+        # trigger L and R must be pressed to allow movement
+        vLinear = safety * sqrt(joy.axes[0]**2 + joy.axes[1]**2)
 
         # movement orientation
         Heading = atan2(joy.axes[0], joy.axes[1])
@@ -51,7 +52,7 @@ class MecanumTeleop:
         twist.linear.y = self.maxLinearVelocity * vLinear * sin(Heading)
 
         # YAW axis rotational velocity
-        twist.angular.z = self.maxAngularVelocity * joy.buttons[0] * (joy.axes[5] - joy.axes[2]) / 2.0
+        twist.angular.z = self.maxAngularVelocity * safety * (joy.axes[2]) / 2.0
 
         self.pubFLW.publish(twist)
 
@@ -67,3 +68,4 @@ if __name__ == '__main__':
 
     except rospy.ROSInterruptException:
         pass
+                
