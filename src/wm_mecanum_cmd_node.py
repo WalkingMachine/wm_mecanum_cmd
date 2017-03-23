@@ -21,9 +21,9 @@ class MecanumCmd:
 
         # get parameters
         # x axis distance between wheel axis and the robot's centroid
-        self.alpha = rospy.get_param('alpha', 0.31)    # in meter
+        self.alpha = rospy.get_param('alpha', 0.22735)    # in meter
         # y axis distance between wheel radial median and the robot'S centroid
-        self.beta = rospy.get_param('beta', 0.30)    # in meter
+        self.beta = rospy.get_param('beta', 0.2056310)    # in meter
         self.radius = rospy.get_param('wheel_radius', 0.075)    # wheel radius, in meter
         # max linear velocity, in m/s
         self.maxLinearVelocity = float(rospy.get_param('max_linear_vel', 1))
