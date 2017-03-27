@@ -1,7 +1,7 @@
 <launch>
 
-    <param name="alpha" value="0.30"/>
-    <param name="beta" value="0.31"/>
+    <param name="alpha" value="0.22735"/>
+    <param name="beta" value="0.2056310"/>
     <param name="wheel_radius" value="0.075"/>
     <param name="max_linear_vel" value="1.0"/>
     <!-- parameter "angular_vel_div" is the divisor of pi to compute max angular velocity -->
