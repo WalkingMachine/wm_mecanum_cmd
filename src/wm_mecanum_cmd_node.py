@@ -35,10 +35,14 @@ class MecanumCmd:
 
         self.sub = rospy.Subscriber('cmd_vel', Twist, self.callback)
 
-        self.pubFLW = rospy.Publisher('roboteq_driver_FLW/cmd', Command, queue_size=1)
-        self.pubFRW = rospy.Publisher('roboteq_driver_FRW/cmd', Command, queue_size=1)
-        self.pubRLW = rospy.Publisher('roboteq_driver_RLW/cmd', Command, queue_size=1)
-        self.pubRRW = rospy.Publisher('roboteq_driver_RRW/cmd', Command, queue_size=1)
+        # self.pubFLW = rospy.Publisher('roboteq_driver_FLW/cmd', Command, queue_size=1)
+        # self.pubFRW = rospy.Publisher('roboteq_driver_FRW/cmd', Command, queue_size=1)
+        # self.pubRLW = rospy.Publisher('roboteq_driver_RLW/cmd', Command, queue_size=1)
+        # self.pubRRW = rospy.Publisher('roboteq_driver_RRW/cmd', Command, queue_size=1)
+        self.pubFLW = rospy.Publisher('drive0/cmd0', Command, queue_size=1)
+        self.pubFRW = rospy.Publisher('drive1/cmd1', Command, queue_size=1)
+        self.pubRLW = rospy.Publisher('drive2/cmd2', Command, queue_size=1)
+        self.pubRRW = rospy.Publisher('drive3/cmd3', Command, queue_size=1)
 
     def callback(self, twist):
 
