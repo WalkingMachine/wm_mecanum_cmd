@@ -36,9 +36,12 @@ class MecanumTeleop:
     def callback(self, joy):
 
         twist = Twist()
-
-        safety = float(joy.buttons[6]) * float(joy.buttons[7])
-
+	
+        if float(joy.axes[2]) < 0 and float(joy.axes[5]) < 0:
+	    safety = 1
+        else:
+            safety = 0
+	
         # linear velocity
         # trigger L and R must be pressed to allow movement
         vLinear = safety * sqrt(joy.axes[0]**2 + joy.axes[1]**2)
@@ -52,7 +55,7 @@ class MecanumTeleop:
         twist.linear.y = self.maxLinearVelocity * vLinear * sin(Heading)
 
         # YAW axis rotational velocity
-        twist.angular.z = self.maxAngularVelocity * safety * (joy.axes[2]) / 2.0
+        twist.angular.z = self.maxAngularVelocity * safety * joy.axes[3]
 
         self.pubFLW.publish(twist)
 
