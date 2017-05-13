@@ -31,14 +31,14 @@ class MecanumCmd:
         divisor = rospy.get_param('angular_vel_div', 6)
         self.maxAngularVelocity = pi/divisor
         # gearbox ratio
-        self.gb_ratio = rospy.get_param('gearbox_ratio', 15.0)
+        self.gb_ratio = rospy.get_param('gearbox_ratio', 30.0)
 
         self.sub = rospy.Subscriber('cmd_vel', Twist, self.callback)
 
-        self.pubFLW = rospy.Publisher('roboteq_driver_FLW/cmd', Command, queue_size=1)
-        self.pubFRW = rospy.Publisher('roboteq_driver_FRW/cmd', Command, queue_size=1)
-        self.pubRLW = rospy.Publisher('roboteq_driver_RLW/cmd', Command, queue_size=1)
-        self.pubRRW = rospy.Publisher('roboteq_driver_RRW/cmd', Command, queue_size=1)
+        self.pubFLW = rospy.Publisher('drive0/cmd0', Command, queue_size=1)
+        self.pubFRW = rospy.Publisher('drive1/cmd1', Command, queue_size=1)
+        self.pubRLW = rospy.Publisher('drive2/cmd2', Command, queue_size=1)
+        self.pubRRW = rospy.Publisher('drive3/cmd3', Command, queue_size=1)
 
     def callback(self, twist):
 
