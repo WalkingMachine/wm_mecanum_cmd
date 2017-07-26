@@ -9,7 +9,6 @@
     <param name="angular_vel_div" value="6"/>
 
     <node name="wm_mecanum_cmd_node" pkg="wm_mecanum_cmd" type="wm_mecanum_cmd_node.py" >
-		<remap from="cmd_vel" to="safe_cmd_vel" />
 	</node>
 
 </launch>
