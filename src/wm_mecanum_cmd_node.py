@@ -39,22 +39,26 @@ class MecanumCmd:
         self.pubFRW = rospy.Publisher('drive1/cmd1', Command, queue_size=1)
         self.pubRLW = rospy.Publisher('drive2/cmd2', Command, queue_size=1)
         self.pubRRW = rospy.Publisher('drive3/cmd3', Command, queue_size=1)
+        self.Twist = Twist
 
     def callback(self, twist):
+        self.Twist = twist
+        self.Execute_twist()
 
+    def Execute_twist(self):
         FLW_cmd = Command()
         FRW_cmd = Command()
         RLW_cmd = Command()
         RRW_cmd = Command()
 
         # linear velocity
-        vLinear = sqrt(twist.linear.x**2 + twist.linear.y**2)
+        vLinear = sqrt(self.Twist.linear.x**2 + self.Twist.linear.y**2)
 
         if vLinear > self.maxLinearVelocity:
             vLinear = self.maxLinearVelocity
 
         # movement orientation
-        Heading = atan2(twist.linear.y, twist.linear.x)
+        Heading = atan2(self.Twist.linear.y, self.Twist.linear.x)
 
         # x axis linear velocity
         xVel = vLinear * cos(Heading)
@@ -62,7 +66,7 @@ class MecanumCmd:
         yVel = vLinear * sin(Heading)
 
         # YAW axis rotational velocity
-        yawVel = twist.angular.z
+        yawVel = self.Twist.angular.z
 
         if yawVel**2 > self.maxAngularVelocity**2:
             yawVel = self.maxAngularVelocity * yawVel / abs(yawVel)
