@@ -33,7 +33,7 @@ class MecanumCmd:
         # gearbox ratio
         self.gb_ratio = rospy.get_param('gearbox_ratio', 30.0)
 
-        self.sub = rospy.Subscriber('cmd_vel', Twist, self.callback)
+        self.sub = rospy.Subscriber('cmd_vel', data_class=Twist, callback=self.callback, queue_size=1)
 
         self.pubFLW = rospy.Publisher('drive0/cmd0', Command, queue_size=1)
         self.pubFRW = rospy.Publisher('drive1/cmd1', Command, queue_size=1)
